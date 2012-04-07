@@ -37,9 +37,9 @@ function asyncRequestQueue(purgeQueueOnFailure)
    * true in JavaScript) - executes next YAHOO.util.Connect.asyncRequest in the queue (if
    * not empty).
    */  
-  this.successHandler = function(o)
+  this._successHandler = function(o)
     {
-    //alert("successHandler called, calling user success-handle");
+    //alert("_successHandler called, calling user success-handle");
     // extract current request from the beginning of the queue
     var curRequest = this._requestQueue.shift();
     // call user "success" callback, if exists    
@@ -60,7 +60,7 @@ function asyncRequestQueue(purgeQueueOnFailure)
         //alert("Query not empty, calling next request");
         YAHOO.util.Connect.asyncRequest(this._requestQueue[0][0],  
                                         this._requestQueue[0][1],
-                                        this.REQUEST_CALLBACK,
+                                        this._REQUEST_CALLBACK,
                                         this._requestQueue[0][3]);
         }
     };
@@ -71,9 +71,9 @@ function asyncRequestQueue(purgeQueueOnFailure)
    * Otherwise - executes next YAHOO.util.Connect.asyncRequest in the queue (if
    * not empty).
    */    
-  this.failureHandler = function(o)
+  this._failureHandler = function(o)
     {
-    //alert("failureHandler called, calling user failure-handle");
+    //alert("_failureHandler called, calling user failure-handle");
     // extract current request from the beginning of the queue
     var curRequest = this._requestQueue.shift();
     // call user failure-handler (if any)
@@ -94,16 +94,16 @@ function asyncRequestQueue(purgeQueueOnFailure)
       //alert("Query not empty, calling next request");      
       YAHOO.util.Connect.asyncRequest(this._requestQueue[0][0],  
                                       this._requestQueue[0][1],
-                                      this.REQUEST_CALLBACK,
+                                      this._REQUEST_CALLBACK,
                                       this._requestQueue[0][3]);
       }
     }; 
   /**
    * Callback-configuration for YAHOO.util.Connect.asyncRequest
    */
-  this.REQUEST_CALLBACK = {
-      success: this.successHandler ,
-      failure: this.failureHandler ,
+  this._REQUEST_CALLBACK = {
+      success: this._successHandler ,
+      failure: this._failureHandler ,
       scope:this
     };    
   /**
@@ -130,12 +130,12 @@ function asyncRequestQueue(purgeQueueOnFailure)
       {
       /* _userHandlerInProgress flag set means that current call is made from within
        * user success of failure handler of previous request, already extracted from
-       * the query. In that case, new request will be sent by successHandler or 
-       * failureHandler methods after returning from user handler 
+       * the query. In that case, new request will be sent by _successHandler or 
+       * _failureHandler methods after returning from user handler 
        */
       if(!this._userHandlerInProgress)
         //alert("Queue was empty, performing request immediately")
-        YAHOO.util.Connect.asyncRequest(method,uri,this.REQUEST_CALLBACK,postData);   
+        YAHOO.util.Connect.asyncRequest(method,uri,this._REQUEST_CALLBACK,postData);   
       }
     return true;
     }
