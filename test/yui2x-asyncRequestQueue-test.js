@@ -1,5 +1,5 @@
-var simpleAsynRequestQueue = new asyncRequestQueue(false);
-var purgeAfterFailAsynRequestQueue = new asyncRequestQueue(true);
+var simpleAsynRequestQueue = new YAHOO.yui2x.util.Connect.asyncRequestQueue(false);
+var purgeAfterFailAsynRequestQueue = new YAHOO.yui2x.util.Connect.asyncRequestQueue(true);
 
 function testAsyncRequestQueue(mustFail,usePurgeAfterFailQueue, reqNum)
 {

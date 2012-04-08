@@ -1,3 +1,4 @@
+YAHOO.namespace("yui2x.util.Connect");
 /**
  * Asynchronous YAHOO.util.Connect.asyncRequest request queue.
  * @param purgeQueueOnFailure when true, queue will be purged after the first request 
@@ -11,7 +12,7 @@
  *  should return non-false value to indicate that request completed correctly and
  *  query shouldn`t be purged.
  */
-function asyncRequestQueue(purgeQueueOnFailure)
+YAHOO.yui2x.util.Connect.asyncRequestQueue =  function(purgeQueueOnFailure)
 {
   /**
    * Queue itself.
